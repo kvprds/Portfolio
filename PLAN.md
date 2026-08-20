@@ -70,8 +70,8 @@ repo folder never contained a `TomerBergerResume-Main.pdf`.
 
 - **Phone number** — off. Contact is mailto + LinkedIn + GitHub, and a
   public page is the one place a phone number attracts spam.
-- **`tomerberger.framer.website`** — off, deliberately and everywhere.
-  This site replaces it.
+- **The old portfolio site** — off, deliberately and everywhere, link and
+  name both. This site is what replaces it.
 - **Per-year GPA** — **kept, at Tomer's request.** Cumulative 89.72 alone
   undersells the recent trend, so the About section reads "GPA 89.72
   cumulative — 98 this year, 95 the year before", matching the CV line.
