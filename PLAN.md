@@ -13,84 +13,68 @@ confirm the behaviour described below is real, not just claimed in a README.
 
 ---
 
-## Open questions — please answer before I start Stage 2
+## Decisions — resolved, and what shipped
 
-These are the places where the sources disagree with each other. Per your
-rule I'm not guessing.
+These were the places where the sources disagreed. All settled with Tomer
+before implementation; recorded here so the reasoning survives.
 
-### 1. "26 checks" does not match the code
+### 1. "26 checks" vs. the code — resolved: the site says 21
 
-Your CV, the auditor's `README.md`, `CLAUDE.md` and `NOTES.md` all say **26
-checks**. The code has **21**:
+Tomer's CV, the auditor's `README.md`, `CLAUDE.md` and `NOTES.md` all said
+**26 checks**. The code registers **21**:
 
 ```
 $ node -e "import('./src/audit.ts').then(m=>console.log(m.CHECKS.length))"
 21
 ```
 
-Broken down by category, matching the README's own layout section:
-spec 10, enums 2, contradictions 6, privacy 3 = **21 check functions**.
-They emit **22 distinct finding IDs** — the 21 above plus `invalid-json`,
-which `audit()` returns for unparseable input rather than throwing.
+By category, matching the README's own layout section: spec 10, enums 2,
+contradictions 6, privacy 3 = **21 check functions**, emitting **22
+distinct finding IDs** — those 21 plus `invalid-json`, which `audit()`
+returns for unparseable input rather than throwing.
 
-`NOTES.md` says you "capped at 26 checks" and separately that you "cut
-checks" during the plan review. The most likely story is that 26 was the
-planned number, the review cut it to 21, and the prose was never updated.
+`NOTES.md` says the project "capped at 26 checks" and separately that
+checks were cut during the plan review. 26 was the planned number; the
+review cut it to 21 and the prose was never updated.
 
-This is exactly the class of mismatch you're fixing, so pick one:
+**Shipped:** the site says 21. The auditor repo's README, CLAUDE.md and
+NOTES.md were corrected in the same pass. Tomer is updating the CV
+himself.
 
-- **(a)** Site says **21 checks** — the number I can verify by running it.
-  I'd also suggest correcting the repo's README, CLAUDE.md and NOTES.md,
-  and your CV, since a reader who clones it can count.
-- **(b)** Site says **26** because you know something I don't about how
-  they're counted — tell me the accounting and I'll use it.
-- **(c)** Site avoids the number entirely: "checks covering spec
-  conformance, AdCOM enum values, internal contradictions and privacy
-  signals." Weakest option — the count is genuinely good detail.
+### 2. Is the auditor deployed? — resolved: yes, but access-restricted
 
-**My recommendation: (a).** The copy below is written with 21 and flags
-where the number appears.
+`bid-request-auditor.vercel.app` is live. It could not be reached from the
+build environment for two separate reasons: this sandbox's egress proxy
+blocks the domain, and the deployment sits behind Vercel's Deployment
+Protection, which admits only authorised accounts.
 
-### 2. Is the auditor actually deployed?
+**Shipped:** the live demo is linked. The link only does its job for a
+public visitor once Deployment Protection is turned off — see the note in
+the handover.
 
-- **CV** says `bid-request-auditor.vercel.app`.
-- **README.md** says: *"Live page: not deployed yet — replace this line
-  with the Vercel URL."*
-- **NOTES.md** step 8 says: *"Deployed to Vercel, repo on GitHub."*
+### 3. Surfboard has no live demo — resolved: labelled "In build"
 
-I could not check for myself — this sandbox's network proxy blocks both
-that domain and `tomerberger.framer.website`, so I got no response either
-way. That is a limitation on my end, not evidence the site is down.
-
-**Open the URL yourself and tell me.** If it loads, I'll link it as the
-live demo. If it doesn't, the project ships with a repo link only and I
-won't imply a demo exists.
-
-### 3. The surfboard project has no live demo
-
-Its README documents local use only — `python web.py`, `localhost:5000`,
+Its README documents local use only: `python web.py`, `localhost:5000`,
 and you supply your own Gemini key, OAuth client secret and Gmail app
-password. There's nothing deployed to link.
+password.
 
-You asked for "links to the repo and live demo" on each project. For this
-one I plan **repo link only**, plus one honest line noting it runs locally
-and needs your own keys. Say the word if you'd rather I drop that line.
+**Shipped:** repo link only, with an "In build" status line — not deployed
+yet, runs locally against your own credentials.
 
-### 4. Minor: the CV filename
+### 4. The CV file — resolved
 
-You referred to `TomerBergerResume-Main.pdf` "in this folder". The repo
-folder contained only `README.md`. I used the PDF you attached to the
-message. If there's a different, newer CV, send it and I'll re-check every
-claim against it.
+The plan was written against the resume attached to the conversation. The
+repo folder never contained a `TomerBergerResume-Main.pdf`.
 
-### 5. Things on your CV I deliberately left off — confirm that's right
+### 5. What to leave off the CV — resolved
 
-- **Phone number.** You said contact is mailto + LinkedIn + GitHub, so
-  it's off. It's also the one field that attracts spam on a public page.
-- **`tomerberger.framer.website`.** That's the old portfolio this site
-  replaces; linking it seemed wrong. Say if you want it kept.
-- **Bagrut subject grades and the 98/95 per-year GPA split.** Cumulative
-  GPA is in; the finer breakdown reads as CV detail. Easy to add back.
+- **Phone number** — off. Contact is mailto + LinkedIn + GitHub, and a
+  public page is the one place a phone number attracts spam.
+- **The old portfolio site** — off, deliberately and everywhere, link and
+  name both. This site is what replaces it.
+- **Per-year GPA** — **kept, at Tomer's request.** Cumulative 89.72 alone
+  undersells the recent trend, so the About section reads "GPA 89.72
+  cumulative — 98 this year, 95 the year before", matching the CV line.
 
 ---
 
@@ -493,15 +477,22 @@ Dark, restrained, no animation libraries.
 
 ---
 
-## What happens in Stage 2, once you approve
+## Build verification
 
-1. `index.html`, `style.css`, `main.js` with the copy above, verbatim.
-2. Generate `favicon.svg`, `favicon.ico` and `og-image.png`.
-3. Run the contrast checker over every pair; fix anything under AA.
-4. Check the rendered page at 360/390/768/1024/1440 and tab through it.
-5. Stage 3: `.gitignore`, one clean commit on
-   `claude/portfolio-site-cloudflare-qxhw49`, `README.md` with the
-   Cloudflare Pages click-path, and the deploy steps written out here.
+Run in headless Chromium against the finished files, not assumed:
 
-**Waiting on:** Q1 (the check count), Q2 (is the auditor deployed), and a
-nod on Q3–Q5. Q1 and Q2 are the two that change what the page says.
+- **Contrast** — every rendered text node measured against its real
+  computed background: **zero WCAG AA failures**. Ratios documented at the
+  top of `style.css`.
+- **Keyboard** — 17 interactive elements, all Tab-reachable, all with a
+  visible focus ring; "Skip to content" is the first stop; Escape closes
+  the mobile menu and returns focus to the toggle.
+- **Responsive** — no horizontal overflow at 360, 390, 768, 1024, 1440px.
+- **Structure** — one `<h1>`, no skipped heading levels, all
+  `aria-labelledby` / `aria-controls` targets resolving, no duplicate ids,
+  no unclosed tags.
+- **No JavaScript** — nav visible and fully usable; the toggle hides
+  itself.
+- **`file://`** — asset paths are relative, so double-clicking
+  `index.html` loads styles, script and favicon with no failed requests.
+- **Console** — no errors, no failed requests at any width.
