@@ -1,0 +1,380 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+
+<title>Tomer Berger — Backend, AI Systems &amp; Security</title>
+<meta name="description" content="Final-year Computer Science &amp; Mathematics student building backend systems, AI integrations and security tooling. An OpenRTB 2.6 validator, a multimodal surfboard-sizing app, and offensive security coursework.">
+<meta name="author" content="Tomer Berger">
+<link rel="canonical" href="https://tomerberger.pages.dev/">
+
+<!--
+  Absolute URLs below must match the domain you actually publish on.
+  If you attach a custom domain in Cloudflare Pages, update the canonical
+  link above and the two og:url / og:image tags below. Nothing else in
+  this file is domain-dependent. See README.md.
+-->
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="Tomer Berger">
+<meta property="og:url" content="https://tomerberger.pages.dev/">
+<meta property="og:title" content="Tomer Berger — Backend, AI Systems &amp; Security">
+<meta property="og:description" content="Final-year Computer Science &amp; Mathematics student building backend systems, AI integrations and security tooling.">
+<meta property="og:image" content="https://tomerberger.pages.dev/og-image.png">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta property="og:image:alt" content="Tomer Berger — Backend, AI Systems and Security">
+<meta property="og:locale" content="en_US">
+
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="Tomer Berger — Backend, AI Systems &amp; Security">
+<meta name="twitter:description" content="Final-year Computer Science &amp; Mathematics student building backend systems, AI integrations and security tooling.">
+<meta name="twitter:image" content="https://tomerberger.pages.dev/og-image.png">
+<meta name="twitter:image:alt" content="Tomer Berger — Backend, AI Systems and Security">
+
+<meta name="theme-color" content="#0d1117">
+<link rel="icon" href="favicon.svg" type="image/svg+xml">
+<link rel="alternate icon" href="favicon.ico" sizes="32x32">
+<script>document.documentElement.classList.add('js');</script>
+<link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+<a class="skip-link" href="#main">Skip to content</a>
+
+<header class="site-header">
+  <div class="wrap header-inner">
+    <a class="wordmark" href="#top"><span aria-hidden="true">TB</span><span class="sr-only">Tomer Berger — back to top</span></a>
+    <button type="button" class="nav-toggle" id="nav-toggle" aria-expanded="false" aria-controls="site-nav">
+      <span class="nav-toggle-bars" aria-hidden="true"></span>
+      <span class="sr-only">Menu</span>
+    </button>
+    <nav class="site-nav" id="site-nav" aria-label="Sections">
+      <ul>
+        <li><a href="#about">About</a></li>
+        <li><a href="#projects">Projects</a></li>
+        <li><a href="#security">Security</a></li>
+        <li><a href="#skills">Skills</a></li>
+        <li><a href="#contact">Contact</a></li>
+      </ul>
+    </nav>
+  </div>
+</header>
+
+<main id="main">
+
+  <!-- ============ HERO ============ -->
+  <section class="hero" id="top" aria-labelledby="hero-heading">
+    <div class="wrap">
+      <h1 id="hero-heading">Tomer Berger</h1>
+      <p class="tagline">Backend, AI systems and security.</p>
+      <p class="lede">
+        Final-year B.Sc. Computer Science &amp; Mathematics student. I build
+        backend systems end to end &mdash; problem definition, architecture,
+        data model, tests and deployment &mdash; on a low-level foundation in
+        operating systems, memory management, networks and assembly.
+      </p>
+      <p class="availability">Available for a student position. Netanya, Israel.</p>
+      <ul class="hero-links">
+        <li><a class="btn btn-primary" href="mailto:tomer.berger08@gmail.com">Email me</a></li>
+        <li><a class="btn" href="https://github.com/kvprds" rel="me noopener">GitHub</a></li>
+        <li><a class="btn" href="https://linkedin.com/in/tomerberger" rel="me noopener">LinkedIn</a></li>
+      </ul>
+    </div>
+  </section>
+
+  <!-- ============ ABOUT ============ -->
+  <section id="about" aria-labelledby="about-heading">
+    <div class="wrap">
+      <h2 id="about-heading">About</h2>
+      <p>
+        I'm completing a B.Sc. in Computer Science &amp; Mathematics at Netanya
+        Academic College through an academic excellence program that ran
+        alongside high school &mdash; I finished my matriculation in 2026 and the
+        degree finishes in 2027. I completed the Computer Science matriculation
+        in 9th grade through the same program.
+      </p>
+      <p>
+        GPA 89.72 cumulative &mdash; <strong>98 this year, 95 the year before</strong>.
+        Coursework: Secure Programming, Operating Systems, Computer Networks,
+        Assembly, Algorithms, Data Structures, Software Engineering,
+        Object-Oriented Programming.
+      </p>
+      <p>
+        I've shipped two products that put ML and LLM capabilities into real
+        workflows. What I care about in both is that the output is traceable: a
+        validator that answers differently on the same input twice isn't a
+        reference, and a sizing recommendation nobody can review isn't advice.
+      </p>
+      <p>
+        Since January 2025 I've tutored high school and college students in
+        computer science and mathematics &mdash; currently 10 active students,
+        whose curriculum and progress I manage, reading and correcting their code
+        across a wide range of levels. All of them have passed their courses.
+      </p>
+    </div>
+  </section>
+
+  <!-- ============ PROJECTS ============ -->
+  <section id="projects" aria-labelledby="projects-heading">
+    <div class="wrap">
+      <h2 id="projects-heading">Projects</h2>
+
+      <!-- ---- Project 1 ---- -->
+      <article class="project" aria-labelledby="proj-auditor">
+        <header class="project-head">
+          <h3 id="proj-auditor">Bid Request Auditor</h3>
+          <p class="project-sub">OpenRTB 2.6 validator</p>
+        </header>
+
+        <p>
+          A validator for OpenRTB 2.6 bid requests. Paste a request, drop a
+          <code>.json</code> file on the page, or load one of five samples, and
+          it reports spec violations, invalid AdCOM 1.0 enum values, internal
+          contradictions, and privacy signals contradicted by the identifiers the
+          request actually carries &mdash; a COPPA or DNT flag asserted while
+          device IDs, user IDs and ten-metre geo are still being sent. It runs
+          <strong>21 checks</strong> across four categories, each citing the spec
+          section it came from and graded by severity. The same rules run three
+          ways: a CLI that exits non-zero on errors so it drops into CI, a
+          browser page, and a Claude Code skill.
+        </p>
+
+        <h4>Stack</h4>
+        <p class="stack">
+          TypeScript, run directly on Node using native type stripping: no
+          compiler, no bundler, no <code>package.json</code>, zero runtime
+          dependencies. The page is plain HTML, CSS and vanilla JavaScript; its
+          one script is generated from <code>src/</code> by a small Node script
+          using <code>node:module</code>'s <code>stripTypeScriptTypes</code>, so
+          the browser runs the real rules rather than a copy of them. Tests are
+          <code>node --test</code>.
+        </p>
+
+        <h4>What I decided, and why</h4>
+        <ul class="decisions">
+          <li>
+            <strong>Deterministic rules, no LLM at runtime.</strong> Results are
+            reproducible, need no network and cost nothing per run. I used AI
+            heavily to build it and not at all to run it &mdash; &ldquo;the spec
+            says X&rdquo; has to trace to a line of code and a section number,
+            not to a model's judgment.
+          </li>
+          <li>
+            <strong>ERROR only where a spec table literally says
+            &ldquo;required.&rdquo;</strong> &ldquo;Recommended&rdquo; caps at
+            WARNING. Unknown fields and unrecognised enum values cap at INFO,
+            because &sect;2.6 requires implementers to tolerate them. The three
+            privacy contradictions are the one deliberate exception, promoted to
+            ERROR.
+          </li>
+          <li>
+            <strong>One engine, two front doors.</strong> The CLI and the page
+            import the same modules, so no rule is duplicated, and a test fails
+            if the generated browser bundle drifts from the source.
+          </li>
+          <li>
+            <strong>No backend.</strong> The audit runs entirely in the browser,
+            so a bid request pasted into the page never leaves the analyst's
+            machine.
+          </li>
+          <li>
+            <strong>Cut a check the spec supports.</strong> &sect;3.2.19 says
+            city should use UN/LOCODE, but effectively nobody sends it that way.
+            Flagging &ldquo;Tel Aviv&rdquo; would have been inventing a problem,
+            so it's out.
+          </li>
+        </ul>
+
+        <ul class="project-links">
+          <li><a class="btn" href="https://github.com/kvprds/bid-request-auditor" rel="noopener">Repository</a></li>
+          <li><a class="btn btn-primary" href="https://bid-request-auditor.vercel.app" rel="noopener">Live demo</a></li>
+        </ul>
+      </article>
+
+      <!-- ---- Project 2 ---- -->
+      <article class="project" aria-labelledby="proj-surf">
+        <header class="project-head">
+          <h3 id="proj-surf">AI Surfboard-Sizing Web App</h3>
+          <p class="project-sub">Board dimensions from a video of you surfing</p>
+        </header>
+
+        <p>
+          A surfer signs in with Google, uploads a video of themselves in the
+          water, and enters height, weight and skill level. Gemini 2.5 Flash
+          confirms the clip actually shows surfing, assesses technique, and
+          returns a recommended board volume in litres and length in feet and
+          inches. To keep recommendations grounded in real expertise, the app
+          pulls an experienced coach's previous sizing decisions out of the
+          database and feeds them into the prompt as few-shot examples, so the
+          model mirrors a human coach's logic rather than sizing from scratch.
+          Clips that aren't surfing are rejected and the user's bundle is
+          refunded. Built and tested with the guidance of an Olympic surfing
+          coach.
+        </p>
+
+        <h4>Stack</h4>
+        <p class="stack">
+          Python and Flask, server-rendered, no frontend framework. SQLite
+          through Flask-SQLAlchemy, Google OAuth via Authlib, Gemini 2.5 Flash
+          through <code>google-genai</code> for multimodal video analysis, SMTP
+          for result notifications. Analysis runs on a background thread so the
+          upload request returns straight away.
+        </p>
+
+        <h4>What I decided, and why</h4>
+        <ul class="decisions">
+          <li>
+            <strong>Swapped the model out when it couldn't do the job.</strong>
+            I prototyped a 3D linear regression over height, weight and a
+            computer-vision-derived skill score. It couldn't capture technique,
+            so I moved to a multimodal model prompted with few-shot examples from
+            the coach's past sizing decisions.
+          </li>
+          <li>
+            <strong>Grounded the prompt in real decisions.</strong> The few-shot
+            examples come out of the database at request time, not from a fixed
+            prompt, so the model's output tracks the coach's actual record.
+          </li>
+          <li>
+            <strong>Kept a human in the loop.</strong> An admin dashboard
+            supports manual review, sizing overrides, inventory and user chat, so
+            the model's answer is reviewable rather than final.
+          </li>
+          <li>
+            <strong>Hardened the session layer.</strong> A CSRF token on every
+            form, HttpOnly and SameSite=Lax cookies,
+            <code>X-Frame-Options: DENY</code>,
+            <code>X-Content-Type-Options: nosniff</code>, and a 500&nbsp;MB cap
+            on uploads.
+          </li>
+        </ul>
+
+        <p class="status">
+          <span class="status-tag">In build</span>
+          Not deployed yet &mdash; it runs locally against your own Gemini key,
+          OAuth client secret and mail credentials. The code is on GitHub in the
+          meantime.
+        </p>
+
+        <ul class="project-links">
+          <li><a class="btn" href="https://github.com/kvprds/SurfBoard-Measurement" rel="noopener">Repository</a></li>
+        </ul>
+      </article>
+    </div>
+  </section>
+
+  <!-- ============ SECURITY & SYSTEMS ============ -->
+  <section id="security" aria-labelledby="security-heading">
+    <div class="wrap">
+      <h2 id="security-heading">Security &amp; systems</h2>
+      <p class="lede">
+        The low-level side is where I started, and it's still the part I reach
+        for first when something behaves strangely.
+      </p>
+
+      <div class="cards">
+        <article class="card" aria-labelledby="sec-offensive">
+          <h3 id="sec-offensive">Offensive security labs</h3>
+          <p>
+            From Secure Programming coursework: stack buffer overflows and the
+            countermeasures built to stop them; environment-variable attacks and
+            Shellshock; Set-UID privileged programs, including capability leaking
+            and command injection through <code>system()</code>; SQL injection
+            and XSS.
+          </p>
+        </article>
+
+        <article class="card" aria-labelledby="sec-re">
+          <h3 id="sec-re">Reverse engineering</h3>
+          <p>
+            Self-taught from an online video series, working through all five of
+            its levels, plus CTF challenges. Static and dynamic analysis of
+            Linux/x86 binaries.
+          </p>
+        </article>
+
+        <article class="card" aria-labelledby="sec-systems">
+          <h3 id="sec-systems">Systems base</h3>
+          <p>
+            Operating Systems (virtual memory, processes, memory management),
+            Computer Networks and Assembly. Two further cyber and network
+            security courses in the final year of the degree.
+          </p>
+        </article>
+      </div>
+
+      <p class="callout">
+        This shows up in the work: the auditor's privacy category exists because
+        the interesting failure in a bid request isn't a malformed field, it's a
+        COPPA flag sitting next to a child's advertising ID.
+      </p>
+    </div>
+  </section>
+
+  <!-- ============ SKILLS ============ -->
+  <section id="skills" aria-labelledby="skills-heading">
+    <div class="wrap">
+      <h2 id="skills-heading">Skills</h2>
+      <dl class="skills">
+        <dt>Languages</dt>
+        <dd>C, Java, Python, C#, TypeScript, C++, Bash, x86 Assembly, SQL</dd>
+
+        <dt>Backend &amp; systems</dt>
+        <dd>Flask, Node.js, REST APIs, SQLite, OAuth 2.0, Git, Vercel, Linux, OS internals and memory management, computer networks</dd>
+
+        <dt>ML &amp; AI systems</dt>
+        <dd>LLM and multimodal API integration (Gemini), few-shot prompting, linear regression, Claude Code (CLAUDE.md project instructions, plan-first workflows, custom skills)</dd>
+
+        <dt>Security</dt>
+        <dd>Memory corruption and buffer overflows, Set-UID and privilege escalation, injection and web vulnerabilities (SQLi, XSS), reverse engineering, CTFs, gdb</dd>
+
+        <dt>Spoken</dt>
+        <dd>English &mdash; proficient. Hebrew &mdash; native.</dd>
+      </dl>
+    </div>
+  </section>
+
+  <!-- ============ CONTACT ============ -->
+  <section id="contact" aria-labelledby="contact-heading">
+    <div class="wrap">
+      <h2 id="contact-heading">Contact</h2>
+      <p class="lede">
+        I'm looking for a student position in backend, AI systems or security.
+        Email is the surest way to reach me.
+      </p>
+      <ul class="contact-list">
+        <li>
+          <span class="contact-label">Email</span>
+          <a class="contact-value" href="mailto:tomer.berger08@gmail.com">tomer.berger08@gmail.com</a>
+        </li>
+        <li>
+          <span class="contact-label">LinkedIn</span>
+          <a class="contact-value" href="https://linkedin.com/in/tomerberger" rel="me noopener">linkedin.com/in/tomerberger</a>
+        </li>
+        <li>
+          <span class="contact-label">GitHub</span>
+          <a class="contact-value" href="https://github.com/kvprds" rel="me noopener">github.com/kvprds</a>
+        </li>
+      </ul>
+      <p class="note">
+        No contact form: this is a static site with no backend, and a form that
+        silently drops what you write is worse than no form at all.
+      </p>
+    </div>
+  </section>
+
+</main>
+
+<footer class="site-footer">
+  <div class="wrap">
+    <p>&copy; 2026 Tomer Berger</p>
+    <p class="note">
+      Static site. No analytics, no cookies, no third-party requests.
+    </p>
+  </div>
+</footer>
+
+<script src="main.js" defer></script>
+</body>
+</html>
