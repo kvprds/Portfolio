@@ -275,10 +275,11 @@
 
         <ul class="chips" aria-label="Surfboard app technologies">
           <li>Python</li>
-          <li>Flask</li>
-          <li>SQLite</li>
-          <li>SQLAlchemy</li>
-          <li>Authlib</li>
+          <li>Cloudflare Workers</li>
+          <li>FastAPI</li>
+          <li>Cloudflare D1</li>
+          <li>Workers KV</li>
+          <li>Stripe</li>
           <li>Gemini 2.5 Flash</li>
         </ul>
 
@@ -292,17 +293,23 @@
           database and feeds them into the prompt as few-shot examples, so the
           model mirrors a human coach's logic rather than sizing from scratch.
           Clips that aren't surfing are rejected and the user's bundle is
-          refunded. Built and tested with the guidance of an Olympic surfing
-          coach.
+          refunded. It runs on Cloudflare Python Workers with D1, and the three
+          bundles are bought through Stripe Checkout, in test mode. Built and
+          tested with the guidance of an Olympic surfing coach.
         </p>
 
         <h4>Stack</h4>
         <p class="stack">
-          Python and Flask, server-rendered, no frontend framework. SQLite
-          through Flask-SQLAlchemy, Google OAuth via Authlib, Gemini 2.5 Flash
-          through <code>google-genai</code> for multimodal video analysis, SMTP
-          for result notifications. Analysis runs on a background thread so the
-          upload request returns straight away.
+          Python on Cloudflare Workers &mdash; FastAPI and Jinja2 on Pyodide,
+          server-rendered, no frontend framework. Cloudflare D1 for the dataset,
+          reached through prepared statements rather than an ORM; Workers KV for
+          the uploaded clips, behind <code>storage.py</code>; hand-rolled Google
+          OIDC and HMAC-signed cookie sessions; Gemini 2.5 Flash over REST,
+          because the <code>google-genai</code> SDK doesn't run under Pyodide;
+          Resend's HTTPS API for result emails, because a Worker can't open an
+          SMTP socket; Stripe Checkout for the bundles. Queued analyses run from
+          a job table in D1 that a Cron Trigger sweeps once a minute &mdash; a
+          Worker can't keep a thread alive past its response.
         </p>
 
         <h4>What I decided, and why</h4>
@@ -322,14 +329,76 @@
           <li>
             <strong>Kept a human in the loop.</strong> An admin dashboard
             supports manual review, sizing overrides, inventory and user chat, so
-            the model's answer is reviewable rather than final.
+            the model's answer is reviewable rather than final. On the coach
+            tier the model's answer is stored as a draft that an admin has to
+            sign off before the surfer sees it.
           </li>
           <li>
-            <strong>Hardened the session layer.</strong> A CSRF token on every
-            form, HttpOnly and SameSite=Lax cookies,
-            <code>X-Frame-Options: DENY</code>,
-            <code>X-Content-Type-Options: nosniff</code>, and a 500&nbsp;MB cap
-            on uploads.
+            <strong>Moved it off Flask onto Python Workers and D1.</strong> Two
+            native Cloudflare services: D1 for the dataset, Workers for the
+            routes. The platform forced most of what followed &mdash; the Worker
+            filesystem is read-only and isn't shared between isolates, so the
+            SQLite file and the <code>uploads/</code> directory had nowhere to
+            live; a thread can't outlive the response, so the background
+            analysis had to become a job somewhere; and neither Authlib nor
+            <code>google-genai</code> runs under Pyodide.
+          </li>
+          <li>
+            <strong>Video went to Workers KV, not R2, and that cost
+            something.</strong> R2 is the right store for video and was the
+            first implementation, but turning it on puts a payment card on the
+            Cloudflare account even inside the free tier. KV is a config and
+            cache store: 25&nbsp;MiB per value, 1&nbsp;GB free, no range
+            requests, and eventually consistent between locations. That last one
+            is the sharp edge &mdash; a read returning nothing can mean "not
+            here yet", so the store raises <code>VideoMissing</code> and the
+            sweeper retries, instead of concluding the clip wasn't surfing and
+            refunding a session that was fine. What KV gives back is
+            <code>expirationTtl</code>, which R2 has no equivalent for: every
+            clip carries an expiry, so storage plateaus instead of growing out of
+            the free tier. <code>storage.py</code> is the only file that knows
+            where bytes live, so moving to R2, Supabase or Cloudinary is a
+            rewrite of one file.
+          </li>
+          <li>
+            <strong>D1 with prepared statements, no ORM.</strong> D1 speaks SQL
+            over a binding and there's no SQLAlchemy dialect for it, so the
+            models became <code>db.py</code>. It reads better than a concession:
+            D1 bills per row read, so it's worth seeing the exact SQL a page
+            runs, and the awkward operations collapse into one statement.
+            Spending a bundle guards itself in the <code>WHERE</code> clause
+            rather than reading a balance and writing it back, so two
+            overlapping requests can't both spend the same one.
+          </li>
+          <li>
+            <strong>Made the payment replay-safe.</strong> The Buy buttons were
+            <code>href="#"</code>. They now open Stripe Checkout, so card details
+            never reach the Worker, and the bundle is granted by the webhook
+            rather than the success redirect &mdash; a redirect is just a URL
+            anyone can visit, and the browser may never arrive at it. The webhook
+            is verified by recomputing Stripe's HMAC over the raw body with a
+            constant-time compare and rejecting signatures older than five
+            minutes. The delivery is then claimed with
+            <code>INSERT OR IGNORE</code>, so the check and the claim are one
+            statement: Stripe delivers at least once, and without that, one
+            payment becomes five bundles.
+          </li>
+          <li>
+            <strong>Hand-rolled the session layer, and hardened it.</strong>
+            Flask's <code>session</code> and Authlib don't exist here, so
+            sessions are an HMAC-signed cookie, CSRF is a token compared in
+            constant time, and Google sign-in is the authorization-code flow
+            written out. The CSRF gate is pure ASGI rather than an HTTP
+            middleware, because reading the token out of the body there drains
+            the receive channel and the route then sees an empty form. HttpOnly
+            and SameSite=Lax as before, <code>Secure</code> now on where the
+            Flask app hardcoded it off, <code>X-Frame-Options: DENY</code>,
+            <code>X-Content-Type-Options: nosniff</code>,
+            <code>Referrer-Policy: strict-origin-when-cross-origin</code>, and
+            uploads capped at 20&nbsp;MB, under Workers KV's hard 25&nbsp;MiB
+            per-value ceiling &mdash; down from the Flask app's 500&nbsp;MB.
+            <code>/video_serve/&lt;id&gt;</code> also had no access control at
+            all; it's now owner-or-admin.
           </li>
         </ul>
 
@@ -421,9 +490,11 @@
         <dt>Backend &amp; systems</dt>
         <dd>
           <ul class="chips">
-            <li>Flask</li><li>Node.js</li><li>REST APIs</li><li>SQLite</li>
-            <li>OAuth 2.0</li><li>Git</li><li>Vercel</li><li>Linux</li>
-            <li>OS internals</li><li>Memory management</li><li>Computer networks</li>
+            <li>Flask</li><li>FastAPI</li><li>Node.js</li><li>REST APIs</li>
+            <li>SQLite</li><li>Cloudflare Workers</li><li>Cloudflare D1</li>
+            <li>Stripe API</li><li>OAuth 2.0</li><li>Git</li><li>Vercel</li>
+            <li>Linux</li><li>OS internals</li><li>Memory management</li>
+            <li>Computer networks</li>
           </ul>
         </dd>
 
