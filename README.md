@@ -1,5 +1,7 @@
 # Portfolio — tomerberger
 
+🔗 **Live site:** <https://tomerberger-portfolio.pages.dev>
+
 Personal portfolio site. One page, static, no framework and no build step.
 
 ```
@@ -55,7 +57,7 @@ words rather than the exact position — the flow itself has been stable.
 
    | Field | Value |
    |---|---|
-   | Project name | `tomerberger` (this becomes `tomerberger.pages.dev`) |
+   | Project name | `tomerberger-portfolio` (this becomes `tomerberger-portfolio.pages.dev`) |
    | Production branch | `main` |
    | Framework preset | **None** |
    | Build command | **leave completely empty** |
@@ -68,7 +70,8 @@ words rather than the exact position — the flow itself has been stable.
 8. Click **Save and Deploy**.
 
 First build takes about a minute — it is only copying files. When it
-finishes you get **`tomerberger.pages.dev`**.
+finishes you get **`tomerberger-portfolio.pages.dev`**, which is where the
+site lives today.
 
 ### Every deploy after that
 
@@ -102,8 +105,8 @@ served:
 
 `twitter:image` just below them takes the same URL. Nothing else in the
 file depends on the domain. Until you change these, link previews keep
-pointing at `tomerberger.pages.dev` — which still works, it is just the
-wrong address to show people.
+pointing at `tomerberger-portfolio.pages.dev` — which still works, it is
+just the wrong address to show people.
 
 ### If a deploy fails
 
