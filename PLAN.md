@@ -52,14 +52,17 @@ Protection, which admits only authorised accounts.
 public visitor once Deployment Protection is turned off — see the note in
 the handover.
 
-### 3. Surfboard has no live demo — resolved: labelled "In build"
+### 3. Surfboard demo — resolved: deployed, and now linked
 
-Its README documents local use only: `python web.py`, `localhost:5000`,
-and you supply your own Gemini key, OAuth client secret and Gmail app
-password.
+Originally the README documented local use only, so the project shipped
+with a repo link and an "In build" status line.
 
-**Shipped:** repo link only, with an "In build" status line — not deployed
-yet, runs locally against your own credentials.
+It has since been deployed to
+<https://surfboard-measurement.tomer-berger08.workers.dev>. The site now
+links it as the primary action and carries a "Live" badge; the "In build"
+line is gone. The deployment could not be reached from the build
+environment — the egress proxy blocks that domain, as it does the
+auditor's — so the link rests on Tomer's confirmation, not a fetch.
 
 ### 4. The CV file — resolved
 
