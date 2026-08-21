@@ -4,8 +4,9 @@ Personal portfolio site. One page, static, no framework and no build step.
 
 ```
 index.html      every section
-style.css       design tokens, layout, responsive rules
-main.js         ~90 lines: small-screen nav toggle + nav scroll-spy
+style.css       fluid type + space scales, layout, responsive rules
+main.js         ~150 lines: nav toggle, scroll progress, scroll reveal,
+                nav scroll-spy. No libraries.
 favicon.svg     "TB" monogram
 favicon.ico     32px fallback for older browsers
 og-image.png    1200x630 social card
@@ -115,23 +116,66 @@ wrong address to show people.
   branch. **Deployments** in the dashboard shows which branch each build
   came from.
 
+## When you're no longer looking for a role
+
+The site is written to stay correct after you're hired. The only
+"available for work" copy is two short blocks, both wrapped in obvious
+HTML comments in `index.html`:
+
+- one in the hero, the small `Currently open to a student position.` pill
+- one at the top of `#contact`
+
+Delete those two `<p class="seeking">` paragraphs and everything still
+reads correctly — nothing else references them, and no layout depends on
+them. Everything else on the page is about what you built and how you
+decided, which does not expire.
+
+## Type and layout are fluid
+
+There is no single fixed font size on the page. Every size and every
+block of spacing interpolates with the viewport between 360px and
+1280px via a `clamp()` scale (`--step--2` … `--step-5`,
+`--space-2xs` … `--space-2xl` at the top of `style.css`). Measured:
+
+| Viewport | 360px | 768px | 1280px+ |
+|---|---|---|---|
+| `h1` | 40.2px | 48.5px | 57.3px |
+| Tagline | 23.2px | 25.6px | 28.1px |
+| Lede | 19.2px | 20.7px | 22.5px |
+| Body | 16.0px | 16.9px | 18.0px |
+| Section padding | 64px | 92px | 128px |
+
+Media queries are used only for things that genuinely have to *reflow* —
+the nav collapsing, the sections going from two columns to one — not for
+resizing text.
+
+Above 62rem, sections become two columns with the heading sticky in the
+left margin; below that they stack.
+
 ## Accessibility and browser checks
 
-Verified in headless Chromium before the first commit, not assumed:
+Verified in headless Chromium, not assumed:
 
 - **Contrast** — every rendered text node measured against its real
   computed background. Zero WCAG AA failures. Ratios are documented at
   the top of `style.css`.
-- **Keyboard** — 17 interactive elements, all reachable by Tab, all with
-  a visible focus ring. "Skip to content" is the first stop.
-- **Responsive** — no horizontal overflow at 360, 390, 768, 1024 or
-  1440px.
+- **Keyboard** — 19 interactive elements, all reachable by Tab, all with
+  a visible focus ring. "Skip to content" is the first stop; Escape
+  closes the mobile menu and returns focus to the toggle.
+- **Responsive** — no horizontal overflow at 360, 390, 414, 768, 1024,
+  1440 or 1920px.
 - **Structure** — one `<h1>`, no skipped heading levels, every
   `aria-labelledby` and `aria-controls` resolving, no duplicate ids.
-- **Without JavaScript** — the nav stays visible and every link works.
-  `main.js` only adds the mobile toggle and the scroll-spy highlight.
-- **Reduced motion** — smooth scrolling and colour transitions are
-  disabled under `prefers-reduced-motion: reduce`.
+- **Without JavaScript** — the nav stays visible, nothing is hidden, and
+  every link works.
+- **Reduced motion** — under `prefers-reduced-motion: reduce` the scroll
+  reveal is disabled outright and content renders visible on load.
+- **Scroll reveal cannot strand content** — sections fade in on scroll,
+  but anything still hidden after 3 seconds is shown unconditionally, and
+  deep links (`/#skills`) reveal everything immediately. Content is never
+  the thing that loses.
+- **Scroll progress bar** — tracks scroll position exactly (verified at
+  0%, 25%, 50%, 100%).
 
 ## Editing
 

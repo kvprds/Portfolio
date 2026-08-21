@@ -12,8 +12,8 @@
 <!--
   Absolute URLs below must match the domain you actually publish on.
   If you attach a custom domain in Cloudflare Pages, update the canonical
-  link above and the two og:url / og:image tags below. Nothing else in
-  this file is domain-dependent. See README.md.
+  link above and the og:url / og:image / twitter:image tags below.
+  Nothing else in this file is domain-dependent. See README.md.
 -->
 <meta property="og:type" content="website">
 <meta property="og:site_name" content="Tomer Berger">
@@ -42,9 +42,15 @@
 <body>
 <a class="skip-link" href="#main">Skip to content</a>
 
+<div class="progress" id="progress" aria-hidden="true"><span></span></div>
+
 <header class="site-header">
   <div class="wrap header-inner">
-    <a class="wordmark" href="#top"><span aria-hidden="true">TB</span><span class="sr-only">Tomer Berger — back to top</span></a>
+    <a class="wordmark" href="#top">
+      <span class="wordmark-mark" aria-hidden="true">TB</span>
+      <span class="wordmark-name">Tomer Berger</span>
+      <span class="sr-only">— back to top</span>
+    </a>
     <button type="button" class="nav-toggle" id="nav-toggle" aria-expanded="false" aria-controls="site-nav">
       <span class="nav-toggle-bars" aria-hidden="true"></span>
       <span class="sr-only">Menu</span>
@@ -65,67 +71,132 @@
 
   <!-- ============ HERO ============ -->
   <section class="hero" id="top" aria-labelledby="hero-heading">
-    <div class="wrap">
-      <h1 id="hero-heading">Tomer Berger</h1>
+    <div class="hero-glow" aria-hidden="true"></div>
+    <div class="wrap hero-inner">
+
+      <p class="hero-kicker">
+        <span class="dot" aria-hidden="true"></span>
+        Netanya, Israel
+      </p>
+
+      <h1 id="hero-heading">Tomer&nbsp;Berger</h1>
+
       <p class="tagline">Backend, AI systems and security.</p>
+
       <p class="lede">
         Final-year B.Sc. Computer Science &amp; Mathematics student. I build
         backend systems end to end &mdash; problem definition, architecture,
         data model, tests and deployment &mdash; on a low-level foundation in
         operating systems, memory management, networks and assembly.
       </p>
-      <p class="availability">Available for a student position. Netanya, Israel.</p>
+
       <ul class="hero-links">
-        <li><a class="btn btn-primary" href="mailto:tomer.berger08@gmail.com">Email me</a></li>
+        <li><a class="btn btn-primary" href="#projects">See what I've built</a></li>
+        <li><a class="btn" href="mailto:tomer.berger08@gmail.com">Email</a></li>
         <li><a class="btn" href="https://github.com/kvprds" rel="me noopener">GitHub</a></li>
         <li><a class="btn" href="https://linkedin.com/in/tomerberger" rel="me noopener">LinkedIn</a></li>
       </ul>
+
+      <!-- =====================================================
+           AVAILABILITY — the only "looking for work" copy on the
+           page, here and in the matching block in #contact.
+           Delete these two blocks and the site still reads
+           correctly as a personal site. Nothing else depends on
+           them. See README.md, "When you're no longer looking".
+           ===================================================== -->
+      <p class="seeking">
+        <span class="seeking-pulse" aria-hidden="true"></span>
+        Currently open to a student position.
+      </p>
+      <!-- ===================================================== -->
+
+      <dl class="hero-stats">
+        <div>
+          <dt>Degree</dt>
+          <dd>B.Sc. CS &amp; Mathematics, 2027</dd>
+        </div>
+        <div>
+          <dt>GPA</dt>
+          <dd>98 this year &middot; 89.72 cumulative</dd>
+        </div>
+        <div>
+          <dt>Shipped</dt>
+          <dd>2 products, end to end</dd>
+        </div>
+      </dl>
+
     </div>
   </section>
 
   <!-- ============ ABOUT ============ -->
-  <section id="about" aria-labelledby="about-heading">
-    <div class="wrap">
-      <h2 id="about-heading">About</h2>
-      <p>
-        I'm completing a B.Sc. in Computer Science &amp; Mathematics at Netanya
-        Academic College through an academic excellence program that ran
-        alongside high school &mdash; I finished my matriculation in 2026 and the
-        degree finishes in 2027. I completed the Computer Science matriculation
-        in 9th grade through the same program.
-      </p>
-      <p>
-        GPA 89.72 cumulative &mdash; <strong>98 this year, 95 the year before</strong>.
-        Coursework: Secure Programming, Operating Systems, Computer Networks,
-        Assembly, Algorithms, Data Structures, Software Engineering,
-        Object-Oriented Programming.
-      </p>
-      <p>
-        I've shipped two products that put ML and LLM capabilities into real
-        workflows. What I care about in both is that the output is traceable: a
-        validator that answers differently on the same input twice isn't a
-        reference, and a sizing recommendation nobody can review isn't advice.
-      </p>
-      <p>
-        Since January 2025 I've tutored high school and college students in
-        computer science and mathematics &mdash; currently 10 active students,
-        whose curriculum and progress I manage, reading and correcting their code
-        across a wide range of levels. All of them have passed their courses.
-      </p>
+  <section id="about" class="reveal" aria-labelledby="about-heading">
+    <div class="wrap section-grid">
+      <div class="section-head">
+        <span class="eyebrow" aria-hidden="true">01</span>
+        <h2 id="about-heading">About</h2>
+      </div>
+
+      <div class="section-body">
+
+      <div class="prose">
+        <p class="lead-para">
+          I'm completing a B.Sc. in Computer Science &amp; Mathematics at
+          Netanya Academic College through an academic excellence program that
+          ran alongside high school &mdash; I finished my matriculation in 2026
+          and the degree finishes in 2027. I completed the Computer Science
+          matriculation in 9th grade through the same program.
+        </p>
+        <p>
+          GPA 89.72 cumulative &mdash; <strong>98 this year, 95 the year
+          before</strong>. Coursework: Secure Programming, Operating Systems,
+          Computer Networks, Assembly, Algorithms, Data Structures, Software
+          Engineering, Object-Oriented Programming.
+        </p>
+        <p>
+          I've shipped two products that put ML and LLM capabilities into real
+          workflows. What I care about in both is that the output is traceable:
+          a validator that answers differently on the same input twice isn't a
+          reference, and a sizing recommendation nobody can review isn't advice.
+        </p>
+        <p>
+          Since January 2025 I've tutored high school and college students in
+          computer science and mathematics &mdash; currently 10 active students,
+          whose curriculum and progress I manage, reading and correcting their
+          code across a wide range of levels. All of them have passed their
+          courses.
+        </p>
+      </div>
+      </div>
     </div>
   </section>
 
   <!-- ============ PROJECTS ============ -->
-  <section id="projects" aria-labelledby="projects-heading">
-    <div class="wrap">
-      <h2 id="projects-heading">Projects</h2>
+  <section id="projects" class="reveal" aria-labelledby="projects-heading">
+    <div class="wrap section-grid">
+      <div class="section-head">
+        <span class="eyebrow" aria-hidden="true">02</span>
+        <h2 id="projects-heading">Projects</h2>
+      </div>
+
+      <div class="section-body">
 
       <!-- ---- Project 1 ---- -->
       <article class="project" aria-labelledby="proj-auditor">
         <header class="project-head">
-          <h3 id="proj-auditor">Bid Request Auditor</h3>
-          <p class="project-sub">OpenRTB 2.6 validator</p>
+          <div class="project-title">
+            <h3 id="proj-auditor">Bid Request Auditor</h3>
+            <p class="project-sub">OpenRTB 2.6 validator</p>
+          </div>
+          <p class="project-badge project-badge-live">Live</p>
         </header>
+
+        <ul class="chips" aria-label="Bid Request Auditor technologies">
+          <li>TypeScript</li>
+          <li>Node.js</li>
+          <li>Zero dependencies</li>
+          <li>Vanilla JS</li>
+          <li>node:test</li>
+        </ul>
 
         <p>
           A validator for OpenRTB 2.6 bid requests. Paste a request, drop a
@@ -187,17 +258,29 @@
         </ul>
 
         <ul class="project-links">
+          <li><a class="btn btn-primary" href="https://bid-request-auditor.vercel.app" rel="noopener">Open the live tool</a></li>
           <li><a class="btn" href="https://github.com/kvprds/bid-request-auditor" rel="noopener">Repository</a></li>
-          <li><a class="btn btn-primary" href="https://bid-request-auditor.vercel.app" rel="noopener">Live demo</a></li>
         </ul>
       </article>
 
       <!-- ---- Project 2 ---- -->
       <article class="project" aria-labelledby="proj-surf">
         <header class="project-head">
-          <h3 id="proj-surf">AI Surfboard-Sizing Web App</h3>
-          <p class="project-sub">Board dimensions from a video of you surfing</p>
+          <div class="project-title">
+            <h3 id="proj-surf">AI Surfboard-Sizing Web App</h3>
+            <p class="project-sub">Board dimensions from a video of you surfing</p>
+          </div>
+          <p class="project-badge project-badge-live">Live</p>
         </header>
+
+        <ul class="chips" aria-label="Surfboard app technologies">
+          <li>Python</li>
+          <li>Flask</li>
+          <li>SQLite</li>
+          <li>SQLAlchemy</li>
+          <li>Authlib</li>
+          <li>Gemini 2.5 Flash</li>
+        </ul>
 
         <p>
           A surfer signs in with Google, uploads a video of themselves in the
@@ -250,25 +333,26 @@
           </li>
         </ul>
 
-        <p class="status">
-          <span class="status-tag">In build</span>
-          Not deployed yet &mdash; it runs locally against your own Gemini key,
-          OAuth client secret and mail credentials. The code is on GitHub in the
-          meantime.
-        </p>
-
         <ul class="project-links">
+          <li><a class="btn btn-primary" href="https://surfboard-measurement.tomer-berger08.workers.dev" rel="noopener">Open the live app</a></li>
           <li><a class="btn" href="https://github.com/kvprds/SurfBoard-Measurement" rel="noopener">Repository</a></li>
         </ul>
       </article>
+      </div>
     </div>
   </section>
 
   <!-- ============ SECURITY & SYSTEMS ============ -->
-  <section id="security" aria-labelledby="security-heading">
-    <div class="wrap">
-      <h2 id="security-heading">Security &amp; systems</h2>
-      <p class="lede">
+  <section id="security" class="reveal" aria-labelledby="security-heading">
+    <div class="wrap section-grid">
+      <div class="section-head">
+        <span class="eyebrow" aria-hidden="true">03</span>
+        <h2 id="security-heading">Security &amp; systems</h2>
+      </div>
+
+      <div class="section-body">
+
+      <p class="lede prose">
         The low-level side is where I started, and it's still the part I reach
         for first when something behaves strangely.
       </p>
@@ -304,71 +388,138 @@
         </article>
       </div>
 
-      <p class="callout">
-        This shows up in the work: the auditor's privacy category exists because
-        the interesting failure in a bid request isn't a malformed field, it's a
-        COPPA flag sitting next to a child's advertising ID.
-      </p>
+      <blockquote class="callout">
+        <p>
+          This shows up in the work: the auditor's privacy category exists
+          because the interesting failure in a bid request isn't a malformed
+          field, it's a COPPA flag sitting next to a child's advertising ID.
+        </p>
+      </blockquote>
+      </div>
     </div>
   </section>
 
   <!-- ============ SKILLS ============ -->
-  <section id="skills" aria-labelledby="skills-heading">
-    <div class="wrap">
-      <h2 id="skills-heading">Skills</h2>
+  <section id="skills" class="reveal" aria-labelledby="skills-heading">
+    <div class="wrap section-grid">
+      <div class="section-head">
+        <span class="eyebrow" aria-hidden="true">04</span>
+        <h2 id="skills-heading">Skills</h2>
+      </div>
+
+      <div class="section-body">
+
       <dl class="skills">
         <dt>Languages</dt>
-        <dd>C, Java, Python, C#, TypeScript, C++, Bash, x86 Assembly, SQL</dd>
+        <dd>
+          <ul class="chips">
+            <li>C</li><li>Java</li><li>Python</li><li>C#</li><li>TypeScript</li>
+            <li>C++</li><li>Bash</li><li>x86 Assembly</li><li>SQL</li>
+          </ul>
+        </dd>
 
         <dt>Backend &amp; systems</dt>
-        <dd>Flask, Node.js, REST APIs, SQLite, OAuth 2.0, Git, Vercel, Linux, OS internals and memory management, computer networks</dd>
+        <dd>
+          <ul class="chips">
+            <li>Flask</li><li>Node.js</li><li>REST APIs</li><li>SQLite</li>
+            <li>OAuth 2.0</li><li>Git</li><li>Vercel</li><li>Linux</li>
+            <li>OS internals</li><li>Memory management</li><li>Computer networks</li>
+          </ul>
+        </dd>
 
         <dt>ML &amp; AI systems</dt>
-        <dd>LLM and multimodal API integration (Gemini), few-shot prompting, linear regression, Claude Code (CLAUDE.md project instructions, plan-first workflows, custom skills)</dd>
+        <dd>
+          <ul class="chips">
+            <li>LLM &amp; multimodal APIs (Gemini)</li><li>Few-shot prompting</li>
+            <li>Linear regression</li><li>Claude Code</li>
+            <li>CLAUDE.md project instructions</li><li>Plan-first workflows</li>
+            <li>Custom skills</li>
+          </ul>
+        </dd>
 
         <dt>Security</dt>
-        <dd>Memory corruption and buffer overflows, Set-UID and privilege escalation, injection and web vulnerabilities (SQLi, XSS), reverse engineering, CTFs, gdb</dd>
+        <dd>
+          <ul class="chips">
+            <li>Memory corruption</li><li>Buffer overflows</li>
+            <li>Set-UID &amp; privilege escalation</li><li>SQLi</li><li>XSS</li>
+            <li>Reverse engineering</li><li>CTFs</li><li>gdb</li>
+          </ul>
+        </dd>
 
         <dt>Spoken</dt>
-        <dd>English &mdash; proficient. Hebrew &mdash; native.</dd>
+        <dd>
+          <ul class="chips">
+            <li>English &mdash; proficient</li><li>Hebrew &mdash; native</li>
+          </ul>
+        </dd>
       </dl>
+      </div>
     </div>
   </section>
 
   <!-- ============ CONTACT ============ -->
-  <section id="contact" aria-labelledby="contact-heading">
-    <div class="wrap">
-      <h2 id="contact-heading">Contact</h2>
-      <p class="lede">
-        I'm looking for a student position in backend, AI systems or security.
-        Email is the surest way to reach me.
+  <section id="contact" class="reveal" aria-labelledby="contact-heading">
+    <div class="wrap section-grid">
+      <div class="section-head">
+        <span class="eyebrow" aria-hidden="true">05</span>
+        <h2 id="contact-heading">Contact</h2>
+      </div>
+
+      <div class="section-body">
+
+      <p class="lede prose">
+        Email is the surest way to reach me &mdash; about the work here, a
+        problem you're stuck on, or anything adjacent.
       </p>
+
+      <!-- =====================================================
+           AVAILABILITY — second and last block. See the note in
+           the hero. Deleting this paragraph leaves the contact
+           section complete.
+           ===================================================== -->
+      <p class="seeking seeking-inline">
+        <span class="seeking-pulse" aria-hidden="true"></span>
+        Currently open to a student position in backend, AI systems or security.
+      </p>
+      <!-- ===================================================== -->
+
       <ul class="contact-list">
         <li>
-          <span class="contact-label">Email</span>
-          <a class="contact-value" href="mailto:tomer.berger08@gmail.com">tomer.berger08@gmail.com</a>
+          <a class="contact-row" href="mailto:tomer.berger08@gmail.com">
+            <span class="contact-label">Email</span>
+            <span class="contact-value">tomer.berger08@gmail.com</span>
+            <span class="contact-arrow" aria-hidden="true">&rarr;</span>
+          </a>
         </li>
         <li>
-          <span class="contact-label">LinkedIn</span>
-          <a class="contact-value" href="https://linkedin.com/in/tomerberger" rel="me noopener">linkedin.com/in/tomerberger</a>
+          <a class="contact-row" href="https://linkedin.com/in/tomerberger" rel="me noopener">
+            <span class="contact-label">LinkedIn</span>
+            <span class="contact-value">linkedin.com/in/tomerberger</span>
+            <span class="contact-arrow" aria-hidden="true">&rarr;</span>
+          </a>
         </li>
         <li>
-          <span class="contact-label">GitHub</span>
-          <a class="contact-value" href="https://github.com/kvprds" rel="me noopener">github.com/kvprds</a>
+          <a class="contact-row" href="https://github.com/kvprds" rel="me noopener">
+            <span class="contact-label">GitHub</span>
+            <span class="contact-value">github.com/kvprds</span>
+            <span class="contact-arrow" aria-hidden="true">&rarr;</span>
+          </a>
         </li>
       </ul>
-      <p class="note">
+
+      <p class="note prose">
         No contact form: this is a static site with no backend, and a form that
         silently drops what you write is worse than no form at all.
       </p>
+      </div>
     </div>
   </section>
 
 </main>
 
 <footer class="site-footer">
-  <div class="wrap">
-    <p>&copy; 2026 Tomer Berger</p>
+  <div class="wrap footer-inner">
+    <p class="footer-name">&copy; 2026 Tomer Berger</p>
     <p class="note">
       Static site. No analytics, no cookies, no third-party requests.
     </p>
